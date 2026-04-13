@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header" :class="{ 'dark': appStore.isDarkMode, 'hidden': !isHeaderVisible }">
+  <header class="app-header" :class="{ dark: appStore.isDarkMode, hidden: !isHeaderVisible }">
     <div class="header-content">
       <!-- 左侧 Logo 和标题 -->
       <div class="header-left">
@@ -13,11 +13,11 @@
           <p class="brand-subtitle">AI-powered TCM System</p>
         </div>
       </div>
-      
+
       <!-- 中间导航 -->
       <nav class="header-nav hidden-mobile">
-        <router-link 
-          v-for="item in navItems" 
+        <router-link
+          v-for="item in navItems"
           :key="item.path"
           :to="item.path"
           class="nav-item"
@@ -29,7 +29,7 @@
           <span>{{ $t(`nav.${item.key}`) }}</span>
         </router-link>
       </nav>
-      
+
       <!-- 右侧操作区 -->
       <div class="header-right">
         <!-- 搜索框 -->
@@ -43,17 +43,18 @@
             @keyup.enter="handleSearch"
           />
         </div>
-        
+
         <!-- 语言切换 -->
         <el-dropdown @command="handleLanguageChange" trigger="click">
           <el-button circle size="small">
-            <span size="16" style="font-size: 12px;">
-              文
-            </span>
+            <span size="16" style="font-size: 12px"> 文 </span>
           </el-button>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item command="zh-CN" :class="{ active: appStore.currentLanguage === 'zh-CN' }">
+              <el-dropdown-item
+                command="zh-CN"
+                :class="{ active: appStore.currentLanguage === 'zh-CN' }"
+              >
                 简体中文
               </el-dropdown-item>
               <el-dropdown-item command="en" :class="{ active: appStore.currentLanguage === 'en' }">
@@ -62,27 +63,31 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
-        
+
         <!-- 主题切换 -->
         <el-button circle size="small" @click="toggleTheme">
           <el-icon size="16">
             <component :is="themeIcon" />
           </el-icon>
         </el-button>
-        
+
         <!-- 通知 -->
-        <el-badge :value="notificationCount" :hidden="notificationCount === 0">
+        <el-badge
+          class="hidden-mobile"
+          :value="notificationCount"
+          :hidden="notificationCount === 0"
+        >
           <el-button circle size="small" @click="showNotifications">
             <el-icon size="16">
               <Bell />
             </el-icon>
           </el-button>
         </el-badge>
-        
+
         <!-- 用户头像 -->
-        <el-dropdown trigger="click" @command="handleUserAction">
-          <el-avatar 
-            :size="36" 
+        <el-dropdown class="hidden-mobile" trigger="click" @command="handleUserAction">
+          <el-avatar
+            :size="36"
             :src="appStore.userProfile?.avatar"
             :class="{ 'cursor-pointer': true }"
           >
@@ -92,35 +97,31 @@
           </el-avatar>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item command="profile" :icon="User">
-                个人中心
-              </el-dropdown-item>
-              <el-dropdown-item command="settings" :icon="Setting">
-                设置
-              </el-dropdown-item>
+              <el-dropdown-item command="profile" :icon="User"> 个人中心 </el-dropdown-item>
+              <el-dropdown-item command="settings" :icon="Setting"> 设置 </el-dropdown-item>
               <el-dropdown-item divided command="logout" :icon="SwitchButton">
                 退出登录
               </el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
-        
+
         <!-- 移动端菜单按钮 -->
-        <el-button 
-          class="mobile-menu-btn hidden-desktop" 
-          :icon="Menu" 
-          circle 
+        <el-button
+          class="mobile-menu-btn hidden-desktop"
+          :icon="Menu"
+          circle
           size="small"
           @click="toggleMobileMenu"
         />
       </div>
     </div>
-    
+
     <!-- 移动端导航菜单 -->
     <transition name="slide-down">
       <nav v-if="showMobileMenu" class="mobile-nav hidden-desktop">
-        <router-link 
-          v-for="item in navItems" 
+        <router-link
+          v-for="item in navItems"
           :key="item.path"
           :to="item.path"
           class="mobile-nav-item"
@@ -155,7 +156,7 @@ import {
   Menu,
   Sunny,
   Moon,
-  Monitor
+  Monitor,
 } from '@element-plus/icons-vue'
 
 const router = useRouter()
@@ -175,7 +176,7 @@ const navItems = [
   { path: '/diagnosis', key: 'diagnosis', icon: 'MostlyCloudy' },
   { path: '/records', key: 'records', icon: 'DocumentCopy' },
   { path: '/knowledge', key: 'knowledge', icon: 'Document' },
-  { path: '/profile', key: 'profile', icon: 'User' }
+  { path: '/profile', key: 'profile', icon: 'User' },
 ]
 
 const themeIcon = computed(() => {
@@ -209,7 +210,7 @@ const handleSearch = () => {
   if (searchQuery.value.trim()) {
     router.push({
       path: '/knowledge',
-      query: { search: searchQuery.value.trim() }
+      query: { search: searchQuery.value.trim() },
     })
   }
 }
@@ -241,20 +242,23 @@ const handleScroll = () => {
   if (scrollTimeout) {
     clearTimeout(scrollTimeout)
   }
-  
+
   // 延迟执行，优化性能
   scrollTimeout = window.setTimeout(() => {
     const currentScrollY = window.scrollY
-    
+
     // 当向上滚动或快到底部时显示头部，向下滚动超过50px时隐藏头部
-    if (currentScrollY < lastScrollY.value || currentScrollY > document.documentElement.scrollHeight - window.innerHeight - 380) {
+    if (
+      currentScrollY < lastScrollY.value ||
+      currentScrollY > document.documentElement.scrollHeight - window.innerHeight - 380
+    ) {
       // 向上滚动或快到底部，显示头部
       isHeaderVisible.value = true
     } else if (currentScrollY > lastScrollY.value && currentScrollY > 50) {
       // 向下滚动超过50px，隐藏头部
       isHeaderVisible.value = false
     }
-    
+
     lastScrollY.value = currentScrollY
   }, 50)
 }
@@ -297,6 +301,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   padding: 12px 24px;
   max-width: 1400px;
   margin: 0 auto;
@@ -306,6 +311,12 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.brand {
+  min-width: 0;
 }
 
 .logo {
@@ -325,6 +336,9 @@ onUnmounted(() => {
   color: var(--tcm-primary);
   margin: 0;
   line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .brand-subtitle {
@@ -367,6 +381,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .search-box {
@@ -408,7 +423,6 @@ onUnmounted(() => {
   color: white;
 }
 
-
 /* 动画 */
 .slide-down-enter-active,
 .slide-down-leave-active {
@@ -425,58 +439,63 @@ onUnmounted(() => {
 @media screen and (max-width: 768px) {
   .header-content {
     padding: 8px 12px;
+    gap: 10px;
   }
-  
+
   .brand-subtitle {
     display: none;
   }
-  
+
   .search-box {
     width: 150px;
   }
-  
+
   .logo {
     width: 36px;
     height: 36px;
   }
-  
+
   .brand-title {
     font-size: 1.1rem;
+  }
+
+  .header-right {
+    gap: 8px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .header-content {
     padding: 6px 10px;
+    gap: 8px;
   }
-  
+
   .logo {
     width: 32px;
     height: 32px;
   }
-  
+
   .brand-title {
     font-size: 1rem;
+    max-width: 11rem;
   }
-  
+
   .header-right {
     gap: 6px;
   }
-  
+
   .header-left {
     gap: 10px;
   }
-  
+
   .mobile-menu-btn {
     margin-left: 4px;
-  }
-  .hidden-mobile{
-    display: none;
   }
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {

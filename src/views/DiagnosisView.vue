@@ -5,7 +5,7 @@
       <h1 class="page-title">智能诊断</h1>
       <p class="page-subtitle">基于大模型的中医智能诊断系统</p>
     </div>
-    
+
     <!-- 诊断流程步骤 -->
     <div class="diagnosis-steps">
       <el-steps :active="currentStep" finish-status="success" class="steps-container">
@@ -16,7 +16,7 @@
         <el-step title="治疗方案" icon="MagicStick" />
       </el-steps>
     </div>
-    
+
     <!-- 步骤内容 -->
     <div class="step-content">
       <!-- 步骤1: 基本信息 -->
@@ -25,7 +25,7 @@
           <h2>患者基本信息</h2>
           <p>请填写您的基本信息，以便进行更准确的诊断</p>
         </div>
-        
+
         <el-form :model="patientInfo" label-width="100px" class="patient-form">
           <el-row :gutter="24">
             <el-col :span="12">
@@ -42,14 +42,14 @@
               </el-form-item>
             </el-col>
           </el-row>
-          
+
           <el-row :gutter="24">
             <el-col :span="12">
               <el-form-item label="年龄">
-                <el-input-number 
-                  v-model="patientInfo.age" 
-                  :min="1" 
-                  :max="120" 
+                <el-input-number
+                  v-model="patientInfo.age"
+                  :min="1"
+                  :max="120"
                   placeholder="请输入年龄"
                 />
               </el-form-item>
@@ -66,16 +66,16 @@
               </el-form-item>
             </el-col>
           </el-row>
-          
+
           <el-form-item label="既往病史">
-            <el-input 
-              v-model="patientInfo.medicalHistory" 
-              type="textarea" 
+            <el-input
+              v-model="patientInfo.medicalHistory"
+              type="textarea"
               :rows="3"
               placeholder="请描述既往病史、过敏史等重要信息"
             />
           </el-form-item>
-          
+
           <el-form-item label="体质类型">
             <el-select v-model="patientInfo.constitution" placeholder="请选择体质类型">
               <el-option label="平和质" value="balanced" />
@@ -92,14 +92,14 @@
           </el-form-item>
         </el-form>
       </div>
-      
+
       <!-- 步骤2: 症状描述 -->
       <div v-if="currentStep === 1" class="step-panel" v-motion-slide-up>
         <div class="panel-header">
           <h2>症状描述</h2>
           <p>请详细描述您的主要症状和不适感受</p>
         </div>
-        
+
         <el-form :model="symptomInfo" label-width="120px" class="symptom-form">
           <el-form-item label="主要症状">
             <el-select
@@ -124,16 +124,16 @@
               <el-option label="四肢乏力" value="limb_weakness" />
             </el-select>
           </el-form-item>
-          
+
           <el-form-item label="症状描述">
-            <el-input 
-              v-model="symptomInfo.description" 
-              type="textarea" 
+            <el-input
+              v-model="symptomInfo.description"
+              type="textarea"
               :rows="4"
               placeholder="请详细描述您的症状，包括发病时间、严重程度、诱发因素等"
             />
           </el-form-item>
-          
+
           <el-row :gutter="24">
             <el-col :span="12">
               <el-form-item label="发病时间">
@@ -151,7 +151,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          
+
           <el-form-item label="伴随症状">
             <el-select
               v-model="symptomInfo.accompanyingSymptoms"
@@ -171,7 +171,7 @@
               <el-option label="听力下降" value="hearing_loss" />
             </el-select>
           </el-form-item>
-          
+
           <el-form-item label="诱发因素">
             <el-checkbox-group v-model="symptomInfo.triggeringFactors">
               <el-checkbox label="weather">天气变化</el-checkbox>
@@ -184,21 +184,21 @@
           </el-form-item>
         </el-form>
       </div>
-      
+
       <!-- 步骤3: 四诊信息 -->
       <div v-if="currentStep === 2" class="step-panel" v-motion-slide-up>
         <div class="panel-header">
           <h2>四诊信息</h2>
           <p>请提供望、闻、问、切四诊相关信息</p>
         </div>
-        
+
         <el-form :model="examinationInfo" label-width="120px" class="examination-form">
           <!-- 望诊 -->
           <el-divider content-position="left">
             <el-icon><View /></el-icon>
             望诊信息
           </el-divider>
-          
+
           <el-row :gutter="24">
             <el-col :span="8">
               <el-form-item label="面色">
@@ -259,11 +259,7 @@
               </el-upload>
 
               <div class="tongue-upload-actions">
-                <el-button
-                  size="small"
-                  :loading="cameraStarting"
-                  @click="openCameraDialog"
-                >
+                <el-button size="small" :loading="cameraStarting" @click="openCameraDialog">
                   摄像头拍照
                 </el-button>
                 <el-button
@@ -302,13 +298,7 @@
             @closed="stopCameraStream"
           >
             <div class="camera-dialog-body">
-              <video
-                ref="cameraVideoRef"
-                class="camera-video"
-                autoplay
-                muted
-                playsinline
-              ></video>
+              <video ref="cameraVideoRef" class="camera-video" autoplay muted playsinline></video>
               <canvas ref="cameraCanvasRef" class="camera-canvas"></canvas>
               <p class="camera-tip">请将舌苔置于画面中央，光线充足后点击拍照。</p>
             </div>
@@ -324,13 +314,12 @@
             </template>
           </el-dialog>
 
-          
           <!-- 闻诊 -->
           <el-divider content-position="left">
             <el-icon><Microphone /></el-icon>
             闻诊信息
           </el-divider>
-          
+
           <el-row :gutter="24">
             <el-col :span="12">
               <el-form-item label="声音">
@@ -353,13 +342,13 @@
               </el-form-item>
             </el-col>
           </el-row>
-          
+
           <!-- 问诊 -->
           <el-divider content-position="left">
             <el-icon><ChatLineRound /></el-icon>
             问诊信息
           </el-divider>
-          
+
           <el-row :gutter="24">
             <el-col :span="8">
               <el-form-item label="饮食">
@@ -393,13 +382,13 @@
               </el-form-item>
             </el-col>
           </el-row>
-          
+
           <!-- 切诊 -->
           <el-divider content-position="left">
             <el-icon><Pointer /></el-icon>
             切诊信息
           </el-divider>
-          
+
           <el-row :gutter="24">
             <el-col :span="12">
               <el-form-item label="脉象">
@@ -431,14 +420,14 @@
           </el-row>
         </el-form>
       </div>
-      
+
       <!-- 步骤4: 智能诊断 -->
       <div v-if="currentStep === 3" class="step-panel" v-motion-slide-up>
         <div class="panel-header">
           <h2>智能诊断</h2>
           <p>AI系统正在分析您的症状信息...</p>
         </div>
-        
+
         <div v-if="diagnosisLoading" class="diagnosis-loading">
           <el-icon class="loading-icon" size="64" color="var(--tcm-primary)">
             <Loading />
@@ -460,7 +449,7 @@
             />
           </div>
         </div>
-        
+
         <div v-else-if="diagnosisResult" class="diagnosis-result">
           <el-card class="result-card" v-motion-pop>
             <template #header>
@@ -471,32 +460,32 @@
                 <span>诊断结果</span>
               </div>
             </template>
-            
+
             <div class="diagnosis-content">
               <div class="diagnosis-item">
                 <h4>证型分析</h4>
                 <p>{{ diagnosisResult.syndrome }}</p>
               </div>
-              
+
               <div class="diagnosis-item">
                 <h4>病因病机</h4>
                 <p>{{ diagnosisResult.pathogenesis }}</p>
               </div>
-              
+
               <div class="diagnosis-item">
                 <h4>病位</h4>
                 <el-tag v-for="location in diagnosisResult.location" :key="location">
                   {{ location }}
                 </el-tag>
               </div>
-              
+
               <div class="diagnosis-item">
                 <h4>病性</h4>
                 <el-tag v-for="nature in diagnosisResult.nature" :key="nature" type="warning">
                   {{ nature }}
                 </el-tag>
               </div>
-              
+
               <div class="diagnosis-item">
                 <h4>诊断依据</h4>
                 <ul>
@@ -529,41 +518,43 @@
               />
 
               <template v-else>
-                <el-table :data="followUpQuestions" class="follow-up-table" style="width: 100%">
-                  <el-table-column prop="category" label="问诊维度" width="120" />
-                  <el-table-column prop="question" label="追问问题" min-width="220" />
-                  <el-table-column label="补充填写" min-width="260">
-                    <template #default="{ row }">
-                      <el-select
-                        v-if="row.answerType === 'select'"
-                        v-model="row.answer"
-                        clearable
-                        :placeholder="row.placeholder || '请选择'"
-                        style="width: 100%"
-                      >
-                        <el-option
-                          v-for="option in row.options || []"
-                          :key="option"
-                          :label="option"
-                          :value="option"
+                <div class="table-scroll">
+                  <el-table :data="followUpQuestions" class="follow-up-table" style="width: 100%">
+                    <el-table-column prop="category" label="问诊维度" width="120" />
+                    <el-table-column prop="question" label="追问问题" min-width="220" />
+                    <el-table-column label="补充填写" min-width="260">
+                      <template #default="{ row }">
+                        <el-select
+                          v-if="row.answerType === 'select'"
+                          v-model="row.answer"
+                          clearable
+                          :placeholder="row.placeholder || '请选择'"
+                          style="width: 100%"
+                        >
+                          <el-option
+                            v-for="option in row.options || []"
+                            :key="option"
+                            :label="option"
+                            :value="option"
+                          />
+                        </el-select>
+                        <el-input
+                          v-else-if="row.answerType === 'textarea'"
+                          v-model="row.answer"
+                          type="textarea"
+                          :rows="2"
+                          :placeholder="row.placeholder || '请输入补充信息'"
                         />
-                      </el-select>
-                      <el-input
-                        v-else-if="row.answerType === 'textarea'"
-                        v-model="row.answer"
-                        type="textarea"
-                        :rows="2"
-                        :placeholder="row.placeholder || '请输入补充信息'"
-                      />
-                      <el-input
-                        v-else
-                        v-model="row.answer"
-                        :placeholder="row.placeholder || '请输入补充信息'"
-                      />
-                    </template>
-                  </el-table-column>
-                  <el-table-column prop="rationale" label="追问目的" min-width="220" />
-                </el-table>
+                        <el-input
+                          v-else
+                          v-model="row.answer"
+                          :placeholder="row.placeholder || '请输入补充信息'"
+                        />
+                      </template>
+                    </el-table-column>
+                    <el-table-column prop="rationale" label="追问目的" min-width="220" />
+                  </el-table>
+                </div>
 
                 <div class="follow-up-actions">
                   <el-button
@@ -573,10 +564,7 @@
                   >
                     补充后重新诊断
                   </el-button>
-                  <el-button
-                    :disabled="!hasAnyFollowUpAnswer()"
-                    @click="clearFollowUpAnswers"
-                  >
+                  <el-button :disabled="!hasAnyFollowUpAnswer()" @click="clearFollowUpAnswers">
                     清空填写
                   </el-button>
                 </div>
@@ -585,14 +573,14 @@
           </el-card>
         </div>
       </div>
-      
+
       <!-- 步骤5: 治疗方案 -->
       <div v-if="currentStep === 4" class="step-panel" v-motion-slide-up>
         <div class="panel-header">
           <h2>治疗方案</h2>
           <p>根据诊断结果，为您制定个性化治疗方案</p>
         </div>
-        
+
         <div v-if="treatmentPlan" class="treatment-content">
           <!-- 中药处方 -->
           <el-card class="treatment-card" v-motion-slide-up>
@@ -604,30 +592,32 @@
                 <span>中药处方</span>
               </div>
             </template>
-            
+
             <div class="prescription-content">
               <div class="prescription-name">
                 <h3>{{ treatmentPlan.prescription.name }}</h3>
                 <el-tag type="primary">{{ treatmentPlan.prescription.type }}</el-tag>
               </div>
-              
+
               <div class="herb-list">
                 <h4>组成药物</h4>
-                <el-table :data="treatmentPlan.prescription.herbs" style="width: 100%">
-                  <el-table-column prop="name" label="药名" width="120" />
-                  <el-table-column prop="dosage" label="用量" width="80" />
-                  <el-table-column prop="unit" label="单位" width="60" />
-                  <el-table-column prop="function" label="功效" />
-                </el-table>
+                <div class="table-scroll">
+                  <el-table :data="treatmentPlan.prescription.herbs" style="width: 100%">
+                    <el-table-column prop="name" label="药名" width="120" />
+                    <el-table-column prop="dosage" label="用量" width="80" />
+                    <el-table-column prop="unit" label="单位" width="60" />
+                    <el-table-column prop="function" label="功效" />
+                  </el-table>
+                </div>
               </div>
-              
+
               <div class="usage">
                 <h4>用法用量</h4>
                 <p>{{ treatmentPlan.prescription.usage }}</p>
               </div>
             </div>
           </el-card>
-          
+
           <!-- 生活调护 -->
           <el-card class="treatment-card" v-motion-slide-up :delay="100">
             <template #header>
@@ -638,7 +628,7 @@
                 <span>生活调护</span>
               </div>
             </template>
-            
+
             <div class="lifestyle-content">
               <div class="lifestyle-item">
                 <h4>饮食建议</h4>
@@ -648,7 +638,7 @@
                   </li>
                 </ul>
               </div>
-              
+
               <div class="lifestyle-item">
                 <h4>起居调护</h4>
                 <ul>
@@ -657,7 +647,7 @@
                   </li>
                 </ul>
               </div>
-              
+
               <div class="lifestyle-item">
                 <h4>情志调摄</h4>
                 <ul>
@@ -668,7 +658,7 @@
               </div>
             </div>
           </el-card>
-          
+
           <!-- 预后评估 -->
           <el-card class="treatment-card" v-motion-slide-up :delay="200">
             <template #header>
@@ -679,7 +669,7 @@
                 <span>预后评估</span>
               </div>
             </template>
-            
+
             <div class="prognosis-content">
               <div class="prognosis-item">
                 <h4>预后情况</h4>
@@ -687,7 +677,7 @@
                   {{ treatmentPlan.prognosis.assessment }}
                 </el-tag>
               </div>
-              
+
               <div class="prognosis-item">
                 <h4>注意事项</h4>
                 <ul>
@@ -696,7 +686,7 @@
                   </li>
                 </ul>
               </div>
-              
+
               <div class="prognosis-item">
                 <h4>复诊建议</h4>
                 <p>{{ treatmentPlan.prognosis.followUp }}</p>
@@ -706,31 +696,20 @@
         </div>
       </div>
     </div>
-    
+
     <!-- 底部操作按钮 -->
     <div class="step-actions">
-      <el-button 
-        v-if="currentStep > 0" 
-        @click="previousStep"
-        size="large"
-      >
-        上一步
-      </el-button>
-      <el-button 
-        v-if="currentStep < 4" 
-        type="primary" 
+      <el-button v-if="currentStep > 0" @click="previousStep" size="large"> 上一步 </el-button>
+      <el-button
+        v-if="currentStep < 4"
+        type="primary"
         @click="nextStep"
         size="large"
         :loading="diagnosisLoading"
       >
         {{ nextButtonLabel }}
       </el-button>
-      <el-button 
-        v-if="currentStep === 4" 
-        type="success" 
-        @click="saveDiagnosis"
-        size="large"
-      >
+      <el-button v-if="currentStep === 4" type="success" @click="saveDiagnosis" size="large">
         保存诊断结果
       </el-button>
     </div>
@@ -755,12 +734,17 @@ import {
   DocumentCopy,
   TrendCharts,
   DataAnalysis,
-  Plus
+  Plus,
 } from '@element-plus/icons-vue'
 import { useDiagnosisStore } from '@/stores/diagnosis'
 import { useAppStore } from '@/stores/app'
 import { TCMService } from '@/services/aiService'
-import type { DiagnosisRequest, DiagnosisWorkflowResult, FollowUpQuestion, TongueAnalysisResult } from '@/types/tcm'
+import type {
+  DiagnosisRequest,
+  DiagnosisWorkflowResult,
+  FollowUpQuestion,
+  TongueAnalysisResult,
+} from '@/types/tcm'
 
 const diagnosisStore = useDiagnosisStore()
 const appStore = useAppStore()
@@ -778,7 +762,7 @@ const patientInfo = reactive({
   age: 30,
   occupation: '',
   medicalHistory: '',
-  constitution: ''
+  constitution: '',
 })
 
 const symptomInfo = reactive({
@@ -787,7 +771,7 @@ const symptomInfo = reactive({
   onsetTime: null,
   severity: 5,
   accompanyingSymptoms: [],
-  triggeringFactors: []
+  triggeringFactors: [],
 })
 
 const examinationInfo = reactive({
@@ -800,7 +784,7 @@ const examinationInfo = reactive({
   sleep: '',
   bowel: '',
   pulse: '',
-  abdomen: ''
+  abdomen: '',
 })
 
 const tongueUploadLoading = ref(false)
@@ -809,7 +793,7 @@ const tongueImagePreview = ref('')
 const tongueImageMeta = reactive({
   imageId: '',
   imageUrl: '',
-  dataUrl: ''
+  dataUrl: '',
 })
 const tongueAnalysis = ref<TongueAnalysisResult | null>(null)
 const cameraDialogVisible = ref(false)
@@ -826,7 +810,7 @@ const validTongueCoatings = new Set([
   'thick_yellow',
   'greasy',
   'scarce',
-  'none'
+  'none',
 ])
 
 const revokeTongueBlobPreview = () => {
@@ -880,13 +864,13 @@ const handleTongueUpload = async (options: UploadRequestOptions) => {
     const uploadResult = await uploadTongueFile(file)
     options.onSuccess?.(uploadResult as any)
   } catch (error) {
-    options.onError?.((error as Error) as any)
+    options.onError?.(error as Error as any)
   }
 }
 
 const stopCameraStream = () => {
   if (cameraStream.value) {
-    cameraStream.value.getTracks().forEach(track => track.stop())
+    cameraStream.value.getTracks().forEach((track) => track.stop())
     cameraStream.value = null
   }
 }
@@ -904,9 +888,9 @@ const openCameraDialog = async () => {
     await nextTick()
     const stream = await navigator.mediaDevices.getUserMedia({
       video: {
-        facingMode: { ideal: 'environment' }
+        facingMode: { ideal: 'environment' },
       },
-      audio: false
+      audio: false,
     })
 
     cameraStream.value = stream
@@ -995,7 +979,7 @@ const handleTongueAnalysis = async () => {
   try {
     const result = await TCMService.analyzeTongueImage(
       tongueImageMeta.imageId,
-      tongueImageMeta.dataUrl
+      tongueImageMeta.dataUrl,
     )
     tongueAnalysis.value = result
 
@@ -1025,7 +1009,7 @@ const diagnosisTips = [
   '正在分析症状信息...',
   '结合中医理论进行辨证...',
   '生成个性化诊断方案...',
-  '优化治疗建议...'
+  '优化治疗建议...',
 ]
 
 const nextButtonLabel = computed(() => {
@@ -1042,29 +1026,35 @@ const applyWorkflowResult = (workflowResult: DiagnosisWorkflowResult) => {
 
   const currentConversationId = workflowResult.conversationId || null
   if ('currentConversationId' in diagnosisStore) {
-    ;(diagnosisStore as { currentConversationId: string | null }).currentConversationId = currentConversationId
+    ;(diagnosisStore as { currentConversationId: string | null }).currentConversationId =
+      currentConversationId
   }
 }
 
 const syncFollowUpQuestions = (questions: FollowUpQuestion[] = []) => {
   const previousAnswers = new Map(
-    followUpQuestions.value.map(item => [`${item.category}::${item.question}`, item.answer || ''])
+    followUpQuestions.value.map((item) => [
+      `${item.category}::${item.question}`,
+      item.answer || '',
+    ]),
   )
 
-  followUpQuestions.value = questions.map(item => ({
+  followUpQuestions.value = questions.map((item) => ({
     ...item,
-    answer: previousAnswers.get(`${item.category}::${item.question}`) || item.answer || ''
+    answer: previousAnswers.get(`${item.category}::${item.question}`) || item.answer || '',
   }))
 }
 
 const hasAnyFollowUpAnswer = () => {
-  return followUpQuestions.value.some(item => typeof item.answer === 'string' && item.answer.trim())
+  return followUpQuestions.value.some(
+    (item) => typeof item.answer === 'string' && item.answer.trim(),
+  )
 }
 
 const clearFollowUpAnswers = () => {
-  followUpQuestions.value = followUpQuestions.value.map(item => ({
+  followUpQuestions.value = followUpQuestions.value.map((item) => ({
     ...item,
-    answer: ''
+    answer: '',
   }))
 }
 
@@ -1099,19 +1089,21 @@ const previousStep = () => {
 const performDiagnosis = async () => {
   diagnosisLoading.value = true
   streamingDiagnosisText.value = ''
-  
+
   try {
     // 构建症状描述
     const symptoms = [
       ...symptomInfo.mainSymptoms,
       symptomInfo.description,
-      ...symptomInfo.accompanyingSymptoms
-    ].filter(Boolean).join(', ')
-    
+      ...symptomInfo.accompanyingSymptoms,
+    ]
+      .filter(Boolean)
+      .join(', ')
+
     // 构建脉象和舌象信息
     const pulse = examinationInfo.pulse
     const tongue = `${examinationInfo.tongueColor} ${examinationInfo.tongueCoating}`.trim()
-    
+
     // 创建诊断请求
     const diagnosisRequest: DiagnosisRequest = {
       symptoms,
@@ -1119,29 +1111,32 @@ const performDiagnosis = async () => {
       tongue,
       tongueImageId: tongueImageMeta.imageId || undefined,
       tongueImageUrl: tongueImageMeta.imageUrl || undefined,
-      diagnosisConversationId: tongueAnalysis.value?.conversationId || tongueImageMeta.imageId || undefined,
+      diagnosisConversationId:
+        tongueAnalysis.value?.conversationId || tongueImageMeta.imageId || undefined,
       tongueFeatures: tongueAnalysis.value || undefined,
       followUpAnswers: followUpQuestions.value
-        .filter(item => typeof item.answer === 'string' && item.answer.trim())
-        .map(item => ({
+        .filter((item) => typeof item.answer === 'string' && item.answer.trim())
+        .map((item) => ({
           ...item,
-          answer: item.answer?.trim()
+          answer: item.answer?.trim(),
         })),
       patientInfo: {
         age: patientInfo.age,
         gender: patientInfo.gender as 'male' | 'female',
-        medicalHistory: patientInfo.medicalHistory
-      }
+        medicalHistory: patientInfo.medicalHistory,
+      },
     }
-    
+
     // 一次请求同时获取综合诊断和处方，并以流式文本展示中间输出
     const workflowResult = await (async () => {
-      const streamWorkflow = (diagnosisStore as {
-        startDiagnosisWorkflowStream?: (
-          request: DiagnosisRequest,
-          onContent?: (fullText: string, deltaText: string) => void
-        ) => Promise<DiagnosisWorkflowResult>
-      }).startDiagnosisWorkflowStream
+      const streamWorkflow = (
+        diagnosisStore as {
+          startDiagnosisWorkflowStream?: (
+            request: DiagnosisRequest,
+            onContent?: (fullText: string, deltaText: string) => void,
+          ) => Promise<DiagnosisWorkflowResult>
+        }
+      ).startDiagnosisWorkflowStream
 
       if (typeof streamWorkflow === 'function') {
         return streamWorkflow(diagnosisRequest, (fullText) => {
@@ -1149,13 +1144,19 @@ const performDiagnosis = async () => {
         })
       }
 
-      console.warn('diagnosisStore.startDiagnosisWorkflowStream 不可用，已直接调用最新 TCMService 流式诊断。建议刷新页面或重启开发服务以更新 Pinia 实例。')
-      streamingDiagnosisText.value = '当前会话中的 Pinia 实例未更新，已直接切换到最新的流式诊断服务。'
+      console.warn(
+        'diagnosisStore.startDiagnosisWorkflowStream 不可用，已直接调用最新 TCMService 流式诊断。建议刷新页面或重启开发服务以更新 Pinia 实例。',
+      )
+      streamingDiagnosisText.value =
+        '当前会话中的 Pinia 实例未更新，已直接切换到最新的流式诊断服务。'
 
       if (typeof TCMService.streamDiagnoseWithPrescription === 'function') {
-        const result = await TCMService.streamDiagnoseWithPrescription(diagnosisRequest, (fullText) => {
-          streamingDiagnosisText.value = fullText
-        })
+        const result = await TCMService.streamDiagnoseWithPrescription(
+          diagnosisRequest,
+          (fullText) => {
+            streamingDiagnosisText.value = fullText
+          },
+        )
         applyWorkflowResult(result)
         return result
       }
@@ -1167,37 +1168,37 @@ const performDiagnosis = async () => {
     const apiDiagnosisResult = workflowResult.diagnosis
     const apiPrescriptionResult = workflowResult.prescription
     syncFollowUpQuestions(workflowResult.followUpQuestions || [])
-    
+
     // 将API返回的结果转换为界面需要的格式
     diagnosisResult.value = {
       syndrome: apiDiagnosisResult.syndromeType,
       pathogenesis: apiDiagnosisResult.diagnosis,
       location: extractLocation(apiDiagnosisResult.diagnosis),
       nature: extractNature(apiDiagnosisResult.diagnosis),
-      evidence: apiDiagnosisResult.recommendations.slice(0, 4) // 取前4条建议作为诊断依据
+      evidence: apiDiagnosisResult.recommendations.slice(0, 4), // 取前4条建议作为诊断依据
     }
-    
+
     // 将API返回的处方结果转换为界面需要的格式
     treatmentPlan.value = {
       prescription: {
         name: apiPrescriptionResult.summary,
         type: apiDiagnosisResult.treatmentPrinciple || '中医治疗',
         herbs: parseHerbs(apiPrescriptionResult.mainHerbs),
-        usage: apiPrescriptionResult.preparation || '水煎服，每日1剂，分2次服用。'
+        usage: apiPrescriptionResult.preparation || '水煎服，每日1剂，分2次服用。',
       },
       lifestyle: {
         diet: apiPrescriptionResult.precautions.slice(0, 4),
         daily: ['保持规律作息，避免熬夜', '适当运动，如太极拳、八段锦'],
-        emotion: ['保持心情舒畅，避免情绪波动', '学会放松技巧，如深呼吸、冥想']
+        emotion: ['保持心情舒畅，避免情绪波动', '学会放松技巧，如深呼吸、冥想'],
       },
       prognosis: {
         assessment: '良好',
         type: 'success',
         precautions: apiPrescriptionResult.precautions.slice(0, 3),
-        followUp: apiPrescriptionResult.duration || '建议1周后复诊'
-      }
+        followUp: apiPrescriptionResult.duration || '建议1周后复诊',
+      },
     }
-    
+
     ElMessage.success('诊断完成！')
   } catch (error) {
     console.error('Diagnosis error:', error)
@@ -1213,19 +1214,33 @@ const performDiagnosis = async () => {
 const extractLocation = (diagnosisText: string): string[] => {
   // 简单的病位提取逻辑，可以根据需要优化
   const locations = ['心', '肝', '脾', '肺', '肾', '胆', '胃', '肠']
-  return locations.filter(loc => diagnosisText.includes(loc))
+  return locations.filter((loc) => diagnosisText.includes(loc))
 }
 
 // 辅助函数：从诊断文本中提取病性
 const extractNature = (diagnosisText: string): string[] => {
   // 简单的病性提取逻辑，可以根据需要优化
-  const natures = ['气虚', '血虚', '阴虚', '阳虚', '气滞', '血瘀', '痰湿', '湿热', '寒湿', '实热', '虚寒']
-  return natures.filter(nature => diagnosisText.includes(nature))
+  const natures = [
+    '气虚',
+    '血虚',
+    '阴虚',
+    '阳虚',
+    '气滞',
+    '血瘀',
+    '痰湿',
+    '湿热',
+    '寒湿',
+    '实热',
+    '虚寒',
+  ]
+  return natures.filter((nature) => diagnosisText.includes(nature))
 }
 
 // 辅助函数：解析药材信息
-const parseHerbs = (herbTexts: string[]): Array<{name: string, dosage: number, unit: string, function: string}> => {
-  return herbTexts.map(herbText => {
+const parseHerbs = (
+  herbTexts: string[],
+): Array<{ name: string; dosage: number; unit: string; function: string }> => {
+  return herbTexts.map((herbText) => {
     const normalizedText = herbText
       .replace(/^[\s\-*•]+/, '')
       .replace(/^\d+[\.\、\s]+/, '')
@@ -1239,7 +1254,7 @@ const parseHerbs = (herbTexts: string[]): Array<{name: string, dosage: number, u
         name: match[1].trim(),
         dosage: Number(match[2]),
         unit: 'g',
-        function: '中药功效' // 可以进一步解析或使用默认值
+        function: '中药功效', // 可以进一步解析或使用默认值
       }
     }
     // 如果解析失败，返回默认值
@@ -1247,7 +1262,7 @@ const parseHerbs = (herbTexts: string[]): Array<{name: string, dosage: number, u
       name: normalizedText || herbText,
       dosage: 6,
       unit: 'g',
-      function: '中药功效'
+      function: '中药功效',
     }
   })
 }
@@ -1261,14 +1276,16 @@ const saveDiagnosis = () => {
 <style scoped>
 .diagnosis-view {
   min-height: 100vh;
-  background: linear-gradient(135deg, #F5E6D3 0%, #FAF0E6 100%);
+  background: linear-gradient(135deg, #f5e6d3 0%, #faf0e6 100%);
   padding: 40px 24px;
 }
 
 .diagnosis-view.dark {
   background: linear-gradient(135deg, #2f2f2f 0%, #3a3a3a 100%);
   color: #f5f5f5;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
 }
 
 .diagnosis-view.dark .page-title,
@@ -1544,37 +1561,103 @@ const saveDiagnosis = () => {
   color: var(--tcm-secondary);
 }
 
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll :deep(.el-table) {
+  min-width: 680px;
+}
+
 @media screen and (max-width: 768px) {
-  .patient-form :deep(.el-row) {
+  .diagnosis-steps {
+    padding: 20px 16px;
+  }
+
+  .steps-container {
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+  }
+
+  .steps-container :deep(.el-steps) {
+    min-width: 720px;
+  }
+
+  .patient-form :deep(.el-row),
+  .symptom-form :deep(.el-row),
+  .examination-form :deep(.el-row) {
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
 
-  .patient-form :deep(.el-col) {
+  .patient-form :deep(.el-col),
+  .symptom-form :deep(.el-col),
+  .examination-form :deep(.el-col) {
     max-width: 100% !important;
     flex: 0 0 100% !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
 
-  .patient-form :deep(.el-form-item) {
+  .patient-form :deep(.el-form-item),
+  .symptom-form :deep(.el-form-item),
+  .examination-form :deep(.el-form-item) {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .patient-form :deep(.el-form-item__label) {
+  .patient-form :deep(.el-form-item__label),
+  .symptom-form :deep(.el-form-item__label),
+  .examination-form :deep(.el-form-item__label) {
     width: 100% !important;
     text-align: left;
     padding: 0 0 8px 0;
   }
 
-  .patient-form :deep(.el-form-item__content) {
+  .patient-form :deep(.el-form-item__content),
+  .symptom-form :deep(.el-form-item__content),
+  .examination-form :deep(.el-form-item__content) {
     width: 100%;
+  }
+
+  .diagnosis-view :deep(.el-input-number),
+  .diagnosis-view :deep(.el-date-editor.el-input),
+  .diagnosis-view :deep(.el-date-editor.el-input__wrapper),
+  .diagnosis-view :deep(.el-select),
+  .diagnosis-view :deep(.el-select__wrapper) {
+    width: 100%;
+  }
+
+  .diagnosis-view :deep(.el-radio-group),
+  .diagnosis-view :deep(.el-checkbox-group) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+
+  .diagnosis-view :deep(.el-rate) {
+    flex-wrap: wrap;
   }
 
   .tongue-uploader :deep(.el-upload) {
     width: 100%;
     max-width: 100%;
+  }
+
+  .tongue-upload-actions,
+  .follow-up-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tongue-upload-actions .el-button,
+  .follow-up-actions .el-button,
+  .step-actions .el-button {
+    width: 100%;
+    margin-left: 0;
   }
 }
 
@@ -1629,7 +1712,7 @@ const saveDiagnosis = () => {
   word-break: break-word;
   line-height: 1.7;
   color: var(--tcm-secondary);
-  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
 }
 
 .tip-item {
@@ -1835,7 +1918,7 @@ const saveDiagnosis = () => {
   .step-panel {
     padding: 32px;
   }
-  
+
   .patient-form,
   .symptom-form,
   .examination-form {
@@ -1847,36 +1930,37 @@ const saveDiagnosis = () => {
   .diagnosis-view {
     padding: 24px 16px;
   }
-  
+
   .page-title {
     font-size: 2rem;
   }
-  
+
   .page-subtitle {
     font-size: 1rem;
   }
-  
+
   .diagnosis-steps {
     padding: 24px;
   }
-  
+
   .step-panel {
     padding: 24px;
   }
-  
+
   .panel-header h2 {
     font-size: 1.5rem;
   }
-  
+
   .step-actions {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    padding: 0;
   }
-  
+
   .step-actions .el-button {
-    width: 200px;
+    width: 100%;
   }
-  
+
   .prescription-name {
     flex-direction: column;
     align-items: flex-start;
@@ -1887,15 +1971,23 @@ const saveDiagnosis = () => {
   .page-title {
     font-size: 1.8rem;
   }
-  
+
   .step-panel {
     padding: 20px;
   }
-  
+
+  .diagnosis-steps {
+    padding: 16px 12px;
+  }
+
+  .steps-container :deep(.el-steps) {
+    min-width: 640px;
+  }
+
   .diagnosis-loading {
     padding: 60px 0;
   }
-  
+
   .loading-tips {
     padding: 0 16px;
   }

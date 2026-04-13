@@ -18,12 +18,10 @@
             <el-icon><Search /></el-icon>
           </template>
           <template #append>
-            <el-button type="primary" @click="handleSearch">
-              搜索
-            </el-button>
+            <el-button type="primary" @click="handleSearch"> 搜索 </el-button>
           </template>
         </el-input>
-        
+
         <div class="quick-tags">
           <span class="quick-tags-label">热门搜索：</span>
           <el-tag
@@ -39,7 +37,7 @@
       </div>
     </div>
 
-    <div class="content-section">
+    <div class="knowledge-layout">
       <div class="category-sidebar">
         <div class="category-header">
           <h3>知识分类</h3>
@@ -80,11 +78,11 @@
         <div v-if="loading" class="loading-container">
           <el-skeleton :rows="3" animated />
         </div>
-        
+
         <div v-else-if="knowledgeItems.length === 0" class="empty-container">
           <el-empty description="暂无相关知识" />
         </div>
-        
+
         <div v-else class="knowledge-grid">
           <div
             v-for="item in knowledgeItems"
@@ -130,7 +128,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="pagination-container">
           <el-pagination
             v-model:current-page="currentPage"
@@ -158,12 +156,7 @@
           <div class="detail-category">
             <el-tag type="primary">{{ getCategoryName(currentKnowledge.category) }}</el-tag>
             <div class="detail-tags">
-              <el-tag
-                v-for="tag in currentKnowledge.tags"
-                :key="tag"
-                type="info"
-                size="small"
-              >
+              <el-tag v-for="tag in currentKnowledge.tags" :key="tag" type="info" size="small">
                 {{ tag }}
               </el-tag>
             </div>
@@ -183,12 +176,12 @@
             </span>
           </div>
         </div>
-        
+
         <div class="detail-content">
           <div class="content-section" v-if="currentKnowledge.content">
             <div v-html="currentKnowledge.content" class="content-html"></div>
           </div>
-          
+
           <div class="content-section" v-if="currentKnowledge.relatedItems?.length">
             <h4>相关内容</h4>
             <div class="related-items">
@@ -204,7 +197,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="detail-actions">
           <el-button type="primary" @click="likeKnowledge">
             <el-icon><Star /></el-icon>
@@ -246,7 +239,7 @@ const categories = reactive({
   prescriptions: '经典方剂',
   acupuncture: '针灸推拿',
   diagnosis: '诊断方法',
-  theory: '中医理论'
+  theory: '中医理论',
 })
 
 // 分页相关
@@ -269,7 +262,7 @@ const getCategoryIcon = (category: KnowledgeCategory) => {
     prescriptions: 'Notebook',
     acupuncture: 'Location',
     diagnosis: 'View',
-    theory: 'Reading'
+    theory: 'Reading',
   }
   return iconMap[category] || 'Document'
 }
@@ -346,7 +339,7 @@ const showRelatedKnowledge = (related: KnowledgeItem) => {
 // 收藏知识
 const likeKnowledge = async () => {
   if (!currentKnowledge.value) return
-  
+
   try {
     await knowledgeStore.likeKnowledge(currentKnowledge.value.id)
     ElMessage.success('收藏成功')
@@ -361,13 +354,13 @@ const likeKnowledge = async () => {
 // 分享知识
 const shareKnowledge = () => {
   if (!currentKnowledge.value) return
-  
+
   const shareText = `中医知识：${currentKnowledge.value.title}`
   if (navigator.share) {
     navigator.share({
       title: shareText,
       text: currentKnowledge.value.description,
-      url: window.location.href
+      url: window.location.href,
     })
   } else {
     navigator.clipboard.writeText(`${shareText} - ${window.location.href}`)
@@ -389,14 +382,16 @@ onMounted(() => {
 <style scoped>
 .knowledge-view {
   min-height: 100vh;
-  background: linear-gradient(135deg, #F5E6D3 0%, #FAF0E6 100%);
+  background: linear-gradient(135deg, #f5e6d3 0%, #faf0e6 100%);
   padding: 40px 24px;
 }
 
 .knowledge-view.dark {
   background: linear-gradient(135deg, #2f2f2f 0%, #3a3a3a 100%);
   color: #f5f5f5;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
 }
 
 .knowledge-view.dark .page-title {
@@ -600,7 +595,7 @@ onMounted(() => {
 }
 
 /* 内容区域 */
-.content-section {
+.knowledge-layout {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
@@ -878,11 +873,11 @@ onMounted(() => {
 
 /* 响应式设计 */
 @media screen and (max-width: 1024px) {
-  .content-section {
+  .knowledge-layout {
     grid-template-columns: 240px 1fr;
     gap: 24px;
   }
-  
+
   .knowledge-grid {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
@@ -893,42 +888,48 @@ onMounted(() => {
   .knowledge-view {
     padding: 24px 16px;
   }
-  
+
   .page-title {
     font-size: 2rem;
   }
-  
-  .content-section {
+
+  .knowledge-layout {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  
+
   .category-sidebar {
     position: static;
   }
-  
+
   .knowledge-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .knowledge-card {
     padding: 20px;
   }
-  
+
+  .card-footer,
+  .detail-stats {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
   .detail-header {
     flex-direction: column;
     gap: 16px;
   }
-  
+
   .detail-stats {
     justify-content: flex-start;
   }
-  
+
   .detail-actions {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .detail-actions .el-button {
     width: 200px;
   }
@@ -938,17 +939,44 @@ onMounted(() => {
   .page-title {
     font-size: 1.8rem;
   }
-  
+
   .search-container,
   .knowledge-content {
     padding: 20px;
   }
-  
+
+  .search-input :deep(.el-input-group) {
+    display: grid;
+    gap: 12px;
+  }
+
+  .search-input :deep(.el-input-group__append) {
+    width: 100%;
+    border-radius: 12px;
+    margin-left: 0;
+    border-radius: 12px;
+  }
+
+  .search-input :deep(.el-input-group__append .el-button) {
+    width: 100%;
+    justify-content: center;
+  }
+
   .quick-tags {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
+  .card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-stats {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .knowledge-detail-dialog :deep(.el-dialog) {
     width: 95% !important;
     margin: 0 auto;

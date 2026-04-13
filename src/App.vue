@@ -21,11 +21,14 @@ onMounted(() => {
 <template>
   <div id="app" class="app-container">
     <AppHeader />
-    
-  <div class="main-layout" :class="{ dark: appStore.isDarkMode }">
+
+    <div class="main-layout" :class="{ dark: appStore.isDarkMode }">
       <AppSidebar />
-      
-      <main class="main-content" :class="{ 'sidebar-collapsed': appStore.sidebarCollapsed , dark: appStore.isDarkMode }">
+
+      <main
+        class="main-content"
+        :class="{ 'sidebar-collapsed': appStore.sidebarCollapsed, dark: appStore.isDarkMode }"
+      >
         <div class="content-wrapper">
           <RouterView v-slot="{ Component }">
             <transition name="fade" mode="out-in">
@@ -35,9 +38,9 @@ onMounted(() => {
         </div>
       </main>
     </div>
-    
+
     <AppFooter />
-    
+
     <!-- 全局加载遮罩 -->
     <LoadingSpinner v-if="appStore.isLoading" />
   </div>
@@ -65,11 +68,15 @@ onMounted(() => {
   width: calc(100% - 260px);
   margin-left: 260px;
   min-width: 0;
-  transition: margin-left 0.3s ease, width 0.3s ease, flex-basis 0.3s ease;
-  background: linear-gradient(135deg, #F5E6D3 0%, #FAF0E6 100%);
+  overflow-x: clip;
+  transition:
+    margin-left 0.3s ease,
+    width 0.3s ease,
+    flex-basis 0.3s ease;
+  background: linear-gradient(135deg, #f5e6d3 0%, #faf0e6 100%);
   min-height: calc(100vh - 120px);
 }
-.main-content.dark{
+.main-content.dark {
   background: linear-gradient(135deg, #5c5b5a 0%, #636160 100%);
 }
 .main-content.sidebar-collapsed {
@@ -83,6 +90,7 @@ onMounted(() => {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  min-width: 0;
 }
 
 /* 页面切换动画 */
@@ -100,24 +108,26 @@ onMounted(() => {
 @media screen and (max-width: 768px) {
   .main-content {
     margin-left: 0;
-    margin-bottom: 60px;
+    width: 100%;
+    flex-basis: 100%;
+    min-height: auto;
+  }
+
+  .main-content.sidebar-collapsed {
+    margin-left: 0;
     width: 100%;
     flex-basis: 100%;
   }
-  
-  .main-content.sidebar-collapsed {
-    margin-left: 0;
-  }
-  
+
   .content-wrapper {
     padding: 16px;
   }
-  
+
   /* 移动端隐藏侧边栏 */
   .main-layout {
     position: relative;
   }
-  
+
   .main-layout > .app-sidebar {
     display: none;
   }

@@ -14,9 +14,9 @@
             基于大模型的智能诊断，为您提供专业、准确的中医诊疗服务
           </p>
           <div class="hero-actions">
-            <el-button 
-              type="primary" 
-              size="large" 
+            <el-button
+              type="primary"
+              size="large"
               class="cta-button"
               @click="startDiagnosis"
               v-motion-pop
@@ -26,8 +26,8 @@
               </el-icon>
               开始智能诊断
             </el-button>
-            <el-button 
-              size="large" 
+            <el-button
+              size="large"
               class="secondary-button"
               @click="learnMore"
               v-motion-pop
@@ -40,7 +40,7 @@
             </el-button>
           </div>
         </div>
-        
+
         <div class="hero-visual" v-motion-slide-right>
           <div class="floating-cards">
             <div class="card card-1" v-motion-float>
@@ -62,30 +62,30 @@
               <span>健康管理</span>
             </div>
           </div>
-          
+
           <div class="pulse-ring"></div>
           <div class="pulse-ring pulse-ring-2"></div>
           <div class="pulse-ring pulse-ring-3"></div>
         </div>
       </div>
-      
+
       <!-- 滚动指示器 -->
       <div class="scroll-indicator" @click="scrollToFeatures">
         <div class="scroll-text"></div>
         <div class="scroll-arrow"></div>
       </div>
     </section>
-    
+
     <!-- 特性展示 -->
     <section class="features-section" ref="featuresSection">
       <div class="section-header" v-motion-fade-visible>
         <h2 class="section-title">核心功能</h2>
         <p class="section-subtitle">融合传统中医理论与现代AI技术</p>
       </div>
-      
+
       <div class="features-grid">
-        <div 
-          v-for="(feature, index) in features" 
+        <div
+          v-for="(feature, index) in features"
           :key="feature.key"
           class="feature-card"
           v-motion-slide-visible-up
@@ -99,29 +99,24 @@
           <h3 class="feature-title">{{ feature.title }}</h3>
           <p class="feature-description">{{ feature.description }}</p>
           <div class="feature-tags">
-            <el-tag 
-              v-for="tag in feature.tags" 
-              :key="tag"
-              size="small"
-              :type="feature.tagType"
-            >
+            <el-tag v-for="tag in feature.tags" :key="tag" size="small" :type="feature.tagType">
               {{ tag }}
             </el-tag>
           </div>
         </div>
       </div>
     </section>
-    
+
     <!-- 诊断流程 -->
     <section class="process-section">
       <div class="section-header" v-motion-fade-visible>
         <h2 class="section-title">诊断流程</h2>
         <p class="section-subtitle">简单四步，获得专业中医诊断</p>
       </div>
-      
+
       <div class="process-timeline">
-        <div 
-          v-for="(step, index) in processSteps" 
+        <div
+          v-for="(step, index) in processSteps"
           :key="step.key"
           class="process-step"
           v-motion-slide-visible-right
@@ -140,12 +135,12 @@
         </div>
       </div>
     </section>
-    
+
     <!-- 统计数据 -->
     <section class="stats-section">
       <div class="stats-grid">
-        <div 
-          v-for="(stat, index) in stats" 
+        <div
+          v-for="(stat, index) in stats"
           :key="stat.key"
           class="stat-card"
           v-motion-slide-visible-up
@@ -163,28 +158,17 @@
         </div>
       </div>
     </section>
-    
+
     <!-- CTA 区域 -->
     <section class="cta-section">
       <div class="cta-content" v-motion-fade-visible>
         <h2 class="cta-title">开始您的中医智能诊疗之旅</h2>
         <p class="cta-subtitle">体验传统中医与现代AI技术的完美结合</p>
         <div class="cta-actions">
-          <el-button 
-            type="primary" 
-            size="large"
-            class="cta-button"
-            @click="startDiagnosis"
-          >
+          <el-button type="primary" size="large" class="cta-button" @click="startDiagnosis">
             立即体验
           </el-button>
-          <el-button 
-            size="large"
-            class="secondary-button"
-            @click="viewDemo"
-          >
-            查看演示
-          </el-button>
+          <el-button size="large" class="secondary-button" @click="viewDemo"> 查看演示 </el-button>
         </div>
       </div>
     </section>
@@ -206,7 +190,7 @@ import {
   CircleCheck,
   Collection,
   DataAnalysis,
-  Star
+  Star,
 } from '@element-plus/icons-vue'
 import { useAppStore } from '@/stores/app'
 
@@ -222,7 +206,7 @@ const features = [
     icon: 'MostlyCloudy',
     color: 'var(--tcm-primary)',
     tags: ['AI诊断', '多维度分析', '准确率高'],
-    tagType: 'primary'
+    tagType: 'primary',
   },
   {
     key: 'prescription',
@@ -231,7 +215,7 @@ const features = [
     icon: 'DocumentCopy',
     color: 'var(--tcm-secondary)',
     tags: ['个性化', '方剂推荐', '用药指导'],
-    tagType: 'success'
+    tagType: 'success',
   },
   {
     key: 'knowledge',
@@ -240,7 +224,7 @@ const features = [
     icon: 'Collection',
     color: 'var(--tcm-accent)',
     tags: ['知识丰富', '理论全面', '易于查询'],
-    tagType: 'info'
+    tagType: 'info',
   },
   {
     key: 'health',
@@ -249,8 +233,8 @@ const features = [
     icon: 'TrendCharts',
     color: 'var(--tcm-success)',
     tags: ['数据记录', '健康监测', '养生建议'],
-    tagType: 'warning'
-  }
+    tagType: 'warning',
+  },
 ]
 
 const processSteps = [
@@ -259,29 +243,29 @@ const processSteps = [
     title: '描述症状',
     description: '详细描述您的症状、不适感受，包括发病时间、严重程度等信息。',
     icon: 'Edit',
-    color: 'var(--tcm-primary)'
+    color: 'var(--tcm-primary)',
   },
   {
     key: 'analysis',
     title: '智能分析',
     description: 'AI系统根据中医理论，结合您的症状信息进行深度分析和诊断。',
     icon: 'Search',
-    color: 'var(--tcm-secondary)'
+    color: 'var(--tcm-secondary)',
   },
   {
     key: 'diagnosis',
     title: '获得诊断',
     description: '获得详细的中医诊断结果，包括证型分析、病因病机等专业解读。',
     icon: 'MostlyCloudy',
-    color: 'var(--tcm-accent)'
+    color: 'var(--tcm-accent)',
   },
   {
     key: 'treatment',
     title: '治疗建议',
     description: '获取个性化的治疗方案，包括中药方剂、生活调护等全面建议。',
     icon: 'MagicStick',
-    color: 'var(--tcm-success)'
-  }
+    color: 'var(--tcm-success)',
+  },
 ]
 
 const stats = [
@@ -290,29 +274,29 @@ const stats = [
     number: '10,000+',
     label: '服务用户',
     icon: 'User',
-    color: 'var(--tcm-primary)'
+    color: 'var(--tcm-primary)',
   },
   {
     key: 'diagnosis',
     number: '50,000+',
     label: '诊断次数',
     icon: 'MostlyCloudy',
-    color: 'var(--tcm-secondary)'
+    color: 'var(--tcm-secondary)',
   },
   {
     key: 'accuracy',
     number: '95%',
     label: '诊断准确率',
     icon: 'CircleCheck',
-    color: 'var(--tcm-success)'
+    color: 'var(--tcm-success)',
   },
   {
     key: 'knowledge',
     number: '1,000+',
     label: '知识条目',
     icon: 'Collection',
-    color: 'var(--tcm-accent)'
-  }
+    color: 'var(--tcm-accent)',
+  },
 ]
 
 const startDiagnosis = () => {
@@ -335,13 +319,15 @@ const scrollToFeatures = () => {
 <style scoped>
 .home-view {
   min-height: 100vh;
-  background: linear-gradient(135deg, #F5E6D3 0%, #FAF0E6 100%);
+  background: linear-gradient(135deg, #f5e6d3 0%, #faf0e6 100%);
 }
 
 .home-view.dark {
   background: linear-gradient(135deg, #2f2f2f 0%, #3a3a3a 100%);
   color: #f5f5f5;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
 }
 
 .home-view.dark .hero-section {
@@ -864,7 +850,8 @@ const scrollToFeatures = () => {
 
 /* 动画定义 */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -887,7 +874,11 @@ const scrollToFeatures = () => {
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateX(-50%) translateY(0);
   }
   40% {
@@ -899,7 +890,11 @@ const scrollToFeatures = () => {
 }
 
 @keyframes arrowBounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateX(-50%) rotate(45deg) translateY(0);
   }
   40% {
@@ -917,24 +912,24 @@ const scrollToFeatures = () => {
     gap: 48px;
     text-align: center;
   }
-  
+
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-actions {
     justify-content: center;
   }
-  
+
   .features-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
-  
+
   .process-timeline {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  
+
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -945,43 +940,50 @@ const scrollToFeatures = () => {
     min-height: 80vh;
     padding: 40px 16px;
   }
-  
+
+  .hero-content {
+    gap: 36px;
+    padding: 0;
+  }
+
   .hero-title {
     font-size: 2rem;
   }
-  
+
   .hero-subtitle {
     font-size: 1rem;
   }
-  
+
   .hero-actions {
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
-  
+
   .cta-button,
   .secondary-button {
-    width: 200px;
+    width: 100%;
+    max-width: 320px;
   }
-  
+
   .features-section,
   .process-section,
   .stats-section {
     padding: 80px 16px;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .feature-card {
     padding: 32px 24px;
   }
-  
+
   .cta-title {
     font-size: 2rem;
   }
-  
+
   .cta-actions {
     flex-direction: column;
     align-items: center;
@@ -992,31 +994,45 @@ const scrollToFeatures = () => {
   .hero-title {
     font-size: 1.8rem;
   }
-  
+
   .hero-visual {
-    height: 300px;
+    height: 240px;
+    width: 100%;
   }
-  
+
+  .floating-cards {
+    transform: scale(0.86);
+  }
+
   .card {
     min-width: 100px;
     padding: 16px;
   }
-  
+
   .card-1 {
     top: -40px;
     left: -20px;
   }
-  
+
   .card-2 {
     top: 10px;
     right: -40px;
   }
-  
+
   .card-3 {
     bottom: -20px;
     left: 10px;
   }
-  
+
+  .pulse-ring {
+    width: 160px;
+    height: 160px;
+  }
+
+  .scroll-indicator {
+    display: none;
+  }
+
   .stats-grid {
     grid-template-columns: 1fr;
   }

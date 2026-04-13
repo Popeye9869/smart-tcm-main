@@ -8,11 +8,7 @@
     <div class="search-section">
       <el-form :inline="true" :model="searchForm" class="search-form">
         <el-form-item label="患者姓名">
-          <el-input
-            v-model="searchForm.patientName"
-            placeholder="请输入患者姓名"
-            clearable
-          />
+          <el-input v-model="searchForm.patientName" placeholder="请输入患者姓名" clearable />
         </el-form-item>
         <el-form-item label="诊断日期">
           <el-date-picker
@@ -26,11 +22,7 @@
           />
         </el-form-item>
         <el-form-item label="诊断结果">
-          <el-select
-            v-model="searchForm.diagnosis"
-            placeholder="选择诊断结果"
-            clearable
-          >
+          <el-select v-model="searchForm.diagnosis" placeholder="选择诊断结果" clearable>
             <el-option label="风寒感冒" value="风寒感冒" />
             <el-option label="风热感冒" value="风热感冒" />
             <el-option label="脾胃虚弱" value="脾胃虚弱" />
@@ -39,24 +31,16 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearch" :icon="Search">
-            搜索
-          </el-button>
-          <el-button @click="handleReset" :icon="Refresh">
-            重置
-          </el-button>
+          <el-button type="primary" @click="handleSearch" :icon="Search"> 搜索 </el-button>
+          <el-button @click="handleReset" :icon="Refresh"> 重置 </el-button>
         </el-form-item>
       </el-form>
     </div>
 
     <div class="actions-section">
       <div class="left-actions">
-        <el-button type="primary" @click="handleNewRecord" :icon="Plus">
-          新建病历
-        </el-button>
-        <el-button @click="handleExport" :icon="Download">
-          导出数据
-        </el-button>
+        <el-button type="primary" @click="handleNewRecord" :icon="Plus"> 新建病历 </el-button>
+        <el-button @click="handleExport" :icon="Download"> 导出数据 </el-button>
       </div>
       <div class="right-actions">
         <el-radio-group v-model="viewMode" size="small">
@@ -75,41 +59,53 @@
     <div class="records-content">
       <!-- 表格视图 -->
       <div v-if="viewMode === 'table'" class="table-view">
-        <el-table
-          :data="records"
-          v-loading="loading"
-          stripe
-          style="width: 100%"
-          @selection-change="handleSelectionChange"
-        >
-          <el-table-column type="selection" width="55" />
-          <el-table-column prop="patientName" label="患者姓名" width="120" />
-          <el-table-column prop="patientAge" label="年龄" width="80" />
-          <el-table-column prop="patientGender" label="性别" width="80">
-            <template #default="{ row }">
-              <el-tag :type="row.patientGender === '男' ? 'primary' : 'success'">
-                {{ row.patientGender }}
-              </el-tag>
-            </template>
-          </el-table-column>
-          <el-table-column prop="diagnosisDate" label="诊断日期" width="120" />
-          <el-table-column prop="mainSymptoms" label="主要症状" min-width="200" show-overflow-tooltip />
-          <el-table-column prop="diagnosis" label="诊断结果" min-width="150" />
-          <el-table-column prop="prescription" label="处方" min-width="200" show-overflow-tooltip />
-          <el-table-column label="操作" width="200" fixed="right">
-            <template #default="{ row }">
-              <el-button type="primary" link @click="handleView(row)" :icon="View">
-                查看
-              </el-button>
-              <el-button type="warning" link @click="handleEdit(row)" :icon="Edit">
-                编辑
-              </el-button>
-              <el-button type="danger" link @click="handleDelete(row)" :icon="Delete">
-                删除
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+        <div class="table-scroll">
+          <el-table
+            :data="records"
+            v-loading="loading"
+            stripe
+            style="width: 100%"
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column type="selection" width="55" />
+            <el-table-column prop="patientName" label="患者姓名" width="120" />
+            <el-table-column prop="patientAge" label="年龄" width="80" />
+            <el-table-column prop="patientGender" label="性别" width="80">
+              <template #default="{ row }">
+                <el-tag :type="row.patientGender === '男' ? 'primary' : 'success'">
+                  {{ row.patientGender }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="diagnosisDate" label="诊断日期" width="120" />
+            <el-table-column
+              prop="mainSymptoms"
+              label="主要症状"
+              min-width="200"
+              show-overflow-tooltip
+            />
+            <el-table-column prop="diagnosis" label="诊断结果" min-width="150" />
+            <el-table-column
+              prop="prescription"
+              label="处方"
+              min-width="200"
+              show-overflow-tooltip
+            />
+            <el-table-column label="操作" width="200" fixed="right">
+              <template #default="{ row }">
+                <el-button type="primary" link @click="handleView(row)" :icon="View">
+                  查看
+                </el-button>
+                <el-button type="warning" link @click="handleEdit(row)" :icon="Edit">
+                  编辑
+                </el-button>
+                <el-button type="danger" link @click="handleDelete(row)" :icon="Delete">
+                  删除
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
       </div>
 
       <!-- 卡片视图 -->
@@ -169,7 +165,7 @@
         v-model:page-size="pageSize"
         :total="totalRecords"
         :page-sizes="[10, 20, 50, 100]"
-        layout="total, sizes, prev, pager, next, jumper"
+        :layout="paginationLayout"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       />
@@ -184,23 +180,47 @@
       class="record-detail-dialog"
     >
       <div v-if="currentRecord" class="record-detail">
-        <el-descriptions :column="2" border>
-          <el-descriptions-item label="患者姓名">{{ currentRecord.patientName }}</el-descriptions-item>
-          <el-descriptions-item label="性别">{{ currentRecord.patientGender }}</el-descriptions-item>
+        <el-descriptions :column="detailColumns" border>
+          <el-descriptions-item label="患者姓名">{{
+            currentRecord.patientName
+          }}</el-descriptions-item>
+          <el-descriptions-item label="性别">{{
+            currentRecord.patientGender
+          }}</el-descriptions-item>
           <el-descriptions-item label="年龄">{{ currentRecord.patientAge }}岁</el-descriptions-item>
-          <el-descriptions-item label="诊断日期">{{ currentRecord.diagnosisDate }}</el-descriptions-item>
-          <el-descriptions-item label="联系电话" :span="2">{{ currentRecord.patientPhone }}</el-descriptions-item>
-          <el-descriptions-item label="主要症状" :span="2">{{ currentRecord.mainSymptoms }}</el-descriptions-item>
+          <el-descriptions-item label="诊断日期">{{
+            currentRecord.diagnosisDate
+          }}</el-descriptions-item>
+          <el-descriptions-item label="联系电话" :span="2">{{
+            currentRecord.patientPhone
+          }}</el-descriptions-item>
+          <el-descriptions-item label="主要症状" :span="2">{{
+            currentRecord.mainSymptoms
+          }}</el-descriptions-item>
           <el-descriptions-item label="诊断结果" :span="2">
             <el-tag type="primary">{{ currentRecord.diagnosis }}</el-tag>
           </el-descriptions-item>
-          <el-descriptions-item label="舌象" :span="2">{{ currentRecord.tongueAppearance }}</el-descriptions-item>
-          <el-descriptions-item label="脉象" :span="2">{{ currentRecord.pulseCondition }}</el-descriptions-item>
-          <el-descriptions-item label="治疗方案" :span="2">{{ currentRecord.treatmentPlan }}</el-descriptions-item>
-          <el-descriptions-item label="处方" :span="2">{{ currentRecord.prescription }}</el-descriptions-item>
-          <el-descriptions-item label="生活建议" :span="2">{{ currentRecord.lifestyleAdvice }}</el-descriptions-item>
-          <el-descriptions-item label="预后" :span="2">{{ currentRecord.prognosis }}</el-descriptions-item>
-          <el-descriptions-item label="备注" :span="2">{{ currentRecord.notes }}</el-descriptions-item>
+          <el-descriptions-item label="舌象" :span="2">{{
+            currentRecord.tongueAppearance
+          }}</el-descriptions-item>
+          <el-descriptions-item label="脉象" :span="2">{{
+            currentRecord.pulseCondition
+          }}</el-descriptions-item>
+          <el-descriptions-item label="治疗方案" :span="2">{{
+            currentRecord.treatmentPlan
+          }}</el-descriptions-item>
+          <el-descriptions-item label="处方" :span="2">{{
+            currentRecord.prescription
+          }}</el-descriptions-item>
+          <el-descriptions-item label="生活建议" :span="2">{{
+            currentRecord.lifestyleAdvice
+          }}</el-descriptions-item>
+          <el-descriptions-item label="预后" :span="2">{{
+            currentRecord.prognosis
+          }}</el-descriptions-item>
+          <el-descriptions-item label="备注" :span="2">{{
+            currentRecord.notes
+          }}</el-descriptions-item>
         </el-descriptions>
       </div>
     </el-dialog>
@@ -208,7 +228,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, onUnmounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { useDiagnosisStore } from '@/stores/diagnosis'
@@ -223,7 +243,7 @@ import {
   Picture,
   View,
   Edit,
-  Delete
+  Delete,
 } from '@element-plus/icons-vue'
 
 const router = useRouter()
@@ -234,7 +254,7 @@ const appStore = useAppStore()
 const searchForm = reactive({
   patientName: '',
   dateRange: [],
-  diagnosis: ''
+  diagnosis: '',
 })
 
 // 视图模式
@@ -250,18 +270,31 @@ const currentRecord = ref<MedicalRecord | null>(null)
 const currentPage = ref(1)
 const pageSize = ref(10)
 const totalRecords = ref(0)
+const viewportWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
+const isMobileViewport = computed(() => viewportWidth.value <= 768)
+const paginationLayout = computed(() =>
+  isMobileViewport.value ? 'prev, pager, next' : 'total, sizes, prev, pager, next, jumper',
+)
+const detailColumns = computed(() => (isMobileViewport.value ? 1 : 2))
 
 // 对话框
 const detailDialogVisible = ref(false)
 
+const syncViewportState = () => {
+  viewportWidth.value = window.innerWidth
+  if (viewportWidth.value <= 768 && viewMode.value === 'table') {
+    viewMode.value = 'card'
+  }
+}
+
 // 获取诊断类型标签
 const getDiagnosisType = (diagnosis: string) => {
   const typeMap: Record<string, string> = {
-    '风寒感冒': 'info',
-    '风热感冒': 'warning',
-    '脾胃虚弱': 'primary',
-    '肝郁气滞': 'danger',
-    '肾虚': 'success'
+    风寒感冒: 'info',
+    风热感冒: 'warning',
+    脾胃虚弱: 'primary',
+    肝郁气滞: 'danger',
+    肾虚: 'success',
   }
   return typeMap[diagnosis] || 'info'
 }
@@ -270,12 +303,12 @@ const getDiagnosisType = (diagnosis: string) => {
 const handleSearch = async () => {
   loading.value = true
   try {
-  const result = await diagnosisStore.getMedicalRecords({
+    const result = await diagnosisStore.getMedicalRecords({
       patientName: searchForm.patientName,
       dateRange: searchForm.dateRange as string[],
       diagnosis: searchForm.diagnosis,
       page: currentPage.value,
-      pageSize: pageSize.value
+      pageSize: pageSize.value,
     })
     records.value = result.records
     totalRecords.value = result.total
@@ -315,7 +348,7 @@ const handleView = (record: MedicalRecord) => {
 const handleEdit = (record: MedicalRecord) => {
   router.push({
     path: '/diagnosis',
-    query: { recordId: record.id }
+    query: { recordId: record.id },
   })
 }
 
@@ -323,15 +356,11 @@ const handleEdit = (record: MedicalRecord) => {
 const handleDelete = async (record: MedicalRecord) => {
   try {
     const patientName = (record as any).patientName
-    await ElMessageBox.confirm(
-      `确定要删除患者 "${patientName}" 的病历吗？`,
-      '删除确认',
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }
-    )
+    await ElMessageBox.confirm(`确定要删除患者 "${patientName}" 的病历吗？`, '删除确认', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    })
     await diagnosisStore.deleteMedicalRecord(record.id)
     ElMessage.success('删除成功')
     handleSearch()
@@ -361,21 +390,29 @@ const handleCurrentChange = (page: number) => {
 
 // 初始化
 onMounted(() => {
+  syncViewportState()
+  window.addEventListener('resize', syncViewportState)
   handleSearch()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', syncViewportState)
 })
 </script>
 
 <style scoped>
 .records-view {
   min-height: 100vh;
-  background: linear-gradient(135deg, #F5E6D3 0%, #FAF0E6 100%);
+  background: linear-gradient(135deg, #f5e6d3 0%, #faf0e6 100%);
   padding: 40px 24px;
 }
 
 .records-view.dark {
   background: linear-gradient(135deg, #2f2f2f 0%, #3a3a3a 100%);
   color: #f5f5f5;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
 }
 
 .records-view.dark .page-title {
@@ -627,6 +664,16 @@ onMounted(() => {
   border: 1px solid rgba(139, 69, 19, 0.1);
 }
 
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll :deep(.el-table) {
+  min-width: 1100px;
+}
+
 /* 表格视图 */
 .table-view :deep(.el-table) {
   border-radius: 16px;
@@ -813,7 +860,7 @@ onMounted(() => {
   .search-form {
     padding: 24px;
   }
-  
+
   .records-content {
     padding: 24px;
   }
@@ -823,45 +870,66 @@ onMounted(() => {
   .records-view {
     padding: 24px 16px;
   }
-  
+
   .page-title {
     font-size: 2rem;
   }
-  
+
   .search-form {
     padding: 20px;
   }
-  
+
   .search-form :deep(.el-form-item) {
     margin-right: 0;
     width: 100%;
   }
-  
+
   .actions-section {
     flex-direction: column;
     gap: 16px;
     align-items: stretch;
   }
-  
+
   .left-actions {
     justify-content: center;
+    flex-wrap: wrap;
   }
-  
+
   .right-actions {
     justify-content: center;
+    width: 100%;
   }
-  
+
+  .right-actions :deep(.el-radio-group) {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .right-actions :deep(.el-radio-button) {
+    width: 100%;
+  }
+
+  .right-actions :deep(.el-radio-button__inner) {
+    width: 100%;
+  }
+
   .records-content {
     padding: 20px;
   }
-  
+
   .card-view :deep(.el-col) {
     margin-bottom: 16px;
   }
-  
+
   .record-detail-dialog :deep(.el-dialog) {
     width: 95% !important;
     margin: 0 auto;
+  }
+
+  .pagination-section :deep(.el-pagination) {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }
 
@@ -869,33 +937,41 @@ onMounted(() => {
   .page-title {
     font-size: 1.8rem;
   }
-  
+
   .search-form,
   .records-content {
     padding: 16px;
   }
-  
+
+  .left-actions {
+    flex-direction: column;
+  }
+
+  .left-actions .el-button {
+    width: 100%;
+  }
+
   .card-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .info-item {
     flex-direction: column;
     gap: 4px;
   }
-  
+
   .info-item .label {
     min-width: auto;
     margin-right: 0;
   }
-  
+
   .card-actions {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .card-actions :deep(.el-button) {
     width: 100%;
     justify-content: center;
