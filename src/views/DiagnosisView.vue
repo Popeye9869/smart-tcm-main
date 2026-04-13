@@ -1578,12 +1578,37 @@ const saveDiagnosis = () => {
 
   .steps-container {
     overflow-x: auto;
-    padding-bottom: 8px;
+    padding: 4px 4px 10px;
     scrollbar-width: thin;
   }
 
   .steps-container :deep(.el-steps) {
-    min-width: 720px;
+    min-width: max-content;
+  }
+
+  .steps-container :deep(.el-step) {
+    flex: 0 0 108px;
+  }
+
+  .steps-container :deep(.el-step__head) {
+    flex: 0 0 auto;
+  }
+
+  .steps-container :deep(.el-step__main) {
+    min-width: auto;
+  }
+
+  .steps-container :deep(.el-step__title) {
+    font-size: 13px;
+    line-height: 1.3;
+    white-space: nowrap;
+    word-break: keep-all;
+  }
+
+  .steps-container :deep(.el-step__icon) {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
   }
 
   .patient-form :deep(.el-row),
@@ -1980,8 +2005,16 @@ const saveDiagnosis = () => {
     padding: 16px 12px;
   }
 
-  .steps-container :deep(.el-steps) {
-    min-width: 640px;
+  .steps-container {
+    padding: 2px 2px 8px;
+  }
+
+  .steps-container :deep(.el-step) {
+    flex-basis: 96px;
+  }
+
+  .steps-container :deep(.el-step__title) {
+    font-size: 12px;
   }
 
   .diagnosis-loading {
