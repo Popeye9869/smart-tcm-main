@@ -373,7 +373,7 @@ onUnmounted(() => {
 }
 
 .mobile-nav {
-  display: flex;
+  display: none;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(139, 69, 19, 0.1);
@@ -428,6 +428,16 @@ onUnmounted(() => {
 
 /* 响应式设计 */
 @media screen and (max-width: 768px) {
+  .header-nav,
+  .search-box,
+  .header-right > .hidden-mobile {
+    display: none !important;
+  }
+
+  .mobile-nav {
+    display: flex;
+  }
+
   .header-content {
     padding: 8px 12px;
     gap: 10px;
@@ -436,11 +446,6 @@ onUnmounted(() => {
   .brand-subtitle {
     display: none;
   }
-
-  .search-box {
-    width: 150px;
-  }
-
   .logo {
     width: 36px;
     height: 36px;
