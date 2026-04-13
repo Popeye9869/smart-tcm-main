@@ -1,0 +1,229 @@
+{
+  "nav": {
+    "home": "首页",
+    "diagnosis": "智能诊断",
+    "records": "病历管理",
+    "knowledge": "知识库",
+    "profile": "个人中心",
+    "about": "关于"
+  },
+  "home": {
+    "title": "智能中医诊疗系统",
+    "subtitle": "传承千年中医智慧，融合现代科技",
+    "description": "基于人工智能的中医诊断辅助系统，为您提供专业的中医诊疗建议",
+    "startDiagnosis": "开始诊断",
+    "learnMore": "了解更多",
+    "features": {
+      "aiDiagnosis": {
+        "title": "智能诊断",
+        "description": "AI辅助中医诊断，结合四诊合参"
+      },
+      "knowledgeBase": {
+        "title": "知识库",
+        "description": "丰富的中医理论知识库"
+      },
+      "caseManagement": {
+        "title": "病历管理",
+        "description": "完整的病历记录和管理系统"
+      }
+    },
+    "process": {
+      "step1": {
+        "title": "症状描述",
+        "description": "详细描述您的症状"
+      },
+      "step2": {
+        "title": "四诊信息",
+        "description": "录入望闻问切信息"
+      },
+      "step3": {
+        "title": "智能分析",
+        "description": "AI分析诊断结果"
+      },
+      "step4": {
+        "title": "治疗方案",
+        "description": "获得个性化治疗建议"
+      }
+    },
+    "stats": {
+      "patients": "服务患者",
+      "accuracy": "诊断准确率",
+      "doctors": "合作医师",
+      "cases": "成功案例"
+    }
+  },
+  "diagnosis": {
+    "title": "智能诊断",
+    "basicInfo": "基本信息",
+    "symptoms": "症状描述",
+    "examination": "四诊信息",
+    "analysis": "智能分析",
+    "treatment": "治疗方案",
+    "next": "下一步",
+    "previous": "上一步",
+    "submit": "提交诊断",
+    "analyzing": "正在分析中...",
+    "patientInfo": {
+      "name": "姓名",
+      "age": "年龄",
+      "gender": "性别",
+      "male": "男",
+      "female": "女",
+      "medicalHistory": "既往病史",
+      "allergies": "过敏史"
+    },
+    "symptoms": {
+      "mainSymptoms": "主要症状",
+      "duration": "持续时间",
+      "severity": "严重程度",
+      "trigger": "诱发因素",
+      "relief": "缓解因素"
+    },
+    "examination": {
+      "inspection": "望诊",
+      "auscultation": "闻诊",
+      "inquiry": "问诊",
+      "palpation": "切诊",
+      "tongue": "舌象",
+      "pulse": "脉象",
+      "faceColor": "面色",
+      "voice": "声音",
+      "breath": "呼吸",
+      "appetite": "食欲",
+      "sleep": "睡眠",
+      "bowel": "大便",
+      "urine": "小便"
+    },
+    "result": {
+      "diagnosis": "诊断结果",
+      "syndrome": "证型分析",
+      "treatment": "治疗建议",
+      "prescription": "处方",
+      "acupuncture": "针灸",
+      "diet": "饮食调理",
+      "lifestyle": "生活调护",
+      "prevention": "预防建议"
+    },
+    "status": {
+      "pending": "待诊断",
+      "completed": "已完成",
+      "cancelled": "已取消"
+    }
+  },
+  "records": {
+    "title": "病历管理",
+    "search": "搜索病历",
+    "view": "查看",
+    "edit": "编辑",
+    "delete": "删除",
+    "export": "导出",
+    "patientName": "患者姓名",
+    "diagnosisDate": "诊断日期",
+    "status": "状态",
+    "symptoms": "主要症状",
+    "diagnosis": "诊断结果",
+    "treatment": "治疗方案",
+    "noRecords": "暂无病历记录",
+    "createRecord": "新建病历",
+    "tableView": "表格视图",
+    "cardView": "卡片视图",
+    "itemsPerPage": "条/页",
+    "total": "共 {total} 条记录",
+    "deleteConfirm": "确定要删除这条病历吗？",
+    "deleteSuccess": "病历删除成功"
+  },
+  "knowledge": {
+    "title": "中医知识库",
+    "search": "搜索知识库",
+    "categories": {
+      "all": "全部",
+      "herbs": "中药",
+      "acupuncture": "针灸",
+      "diagnosis": "诊断",
+      "theory": "理论",
+      "meridians": "经络",
+      "diet": "食疗"
+    },
+    "noResults": "未找到相关内容",
+    "readMore": "阅读更多",
+    "favorite": "收藏",
+    "share": "分享",
+    "related": "相关知识",
+    "author": "作者",
+    "date": "日期",
+    "views": "浏览量",
+    "likes": "点赞数"
+  },
+  "profile": {
+    "title": "个人中心",
+    "subtitle": "管理您的个人信息和设置",
+    "editProfile": "编辑资料",
+    "diagnosisRecords": "诊断记录",
+    "favoriteKnowledge": "收藏知识",
+    "settings": "设置",
+    "recentDiagnosis": "最近诊断",
+    "viewAll": "查看全部",
+    "noRecords": "暂无诊断记录",
+    "startDiagnosis": "开始诊断",
+    "myFavorites": "我的收藏",
+    "noFavorites": "暂无收藏内容",
+    "browseMore": "浏览更多",
+    "exploreKnowledge": "探索知识库",
+    "preferences": "偏好设置",
+    "language": "语言",
+    "languageDesc": "选择系统显示语言",
+    "theme": "主题",
+    "themeDesc": "选择界面主题风格",
+    "notifications": "通知",
+    "notificationsDesc": "接收系统通知和提醒",
+    "name": "姓名",
+    "email": "邮箱",
+    "phone": "电话",
+    "joinDate": "加入日期",
+    "profileUpdated": "个人资料更新成功",
+    "languageUpdated": "语言设置更新成功",
+    "themeUpdated": "主题设置更新成功",
+    "notificationsUpdated": "通知设置更新成功",
+    "addedToFavorites": "已添加到收藏",
+    "removedFromFavorites": "已从收藏中移除"
+  },
+  "common": {
+    "confirm": "确定",
+    "cancel": "取消",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "search": "搜索",
+    "filter": "筛选",
+    "sort": "排序",
+    "viewDetail": "查看详情",
+    "readMore": "阅读更多",
+    "loading": "加载中...",
+    "noData": "暂无数据",
+    "error": "出错了",
+    "success": "操作成功",
+    "warning": "警告",
+    "info": "信息"
+  },
+  "about": {
+    "title": "关于我们",
+    "description": "智能中医诊疗系统致力于传承和发展中医药事业",
+    "features": {
+      "title": "系统特色",
+      "ai": "AI智能诊断",
+      "knowledge": "丰富知识库",
+      "case": "完整病历管理",
+      "modern": "现代化界面"
+    },
+    "team": {
+      "title": "开发团队",
+      "description": "由资深中医专家和AI技术团队共同打造"
+    },
+    "contact": {
+      "title": "联系我们",
+      "email": "邮箱：contact@smart-tcm.com",
+      "phone": "电话：400-123-4567",
+      "address": "地址：北京市朝阳区中医药科技园"
+    }
+  }
+}
