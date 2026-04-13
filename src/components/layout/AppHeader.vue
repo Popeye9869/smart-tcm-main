@@ -45,7 +45,7 @@
         </div>
 
         <!-- 语言切换 -->
-        <el-dropdown @command="handleLanguageChange" trigger="click">
+        <el-dropdown class="hidden-mobile" @command="handleLanguageChange" trigger="click">
           <el-button circle size="small">
             <span size="16" style="font-size: 12px"> 文 </span>
           </el-button>
@@ -107,34 +107,24 @@
         </el-dropdown>
 
         <!-- 移动端菜单按钮 -->
-        <el-button
-          class="mobile-menu-btn hidden-desktop"
-          :icon="Menu"
-          circle
-          size="small"
-          @click="toggleMobileMenu"
-        />
       </div>
     </div>
 
     <!-- 移动端导航菜单 -->
-    <transition name="slide-down">
-      <nav v-if="showMobileMenu" class="mobile-nav hidden-desktop">
-        <router-link
-          v-for="item in navItems"
-          :key="item.path"
-          :to="item.path"
-          class="mobile-nav-item"
-          :class="{ active: $route.path === item.path }"
-          @click="showMobileMenu = false"
-        >
-          <el-icon size="20">
-            <component :is="item.icon" />
-          </el-icon>
-          <span>{{ $t(`nav.${item.key}`) }}</span>
-        </router-link>
-      </nav>
-    </transition>
+    <nav class="mobile-nav hidden-desktop">
+      <router-link
+        v-for="item in navItems"
+        :key="item.path"
+        :to="item.path"
+        class="mobile-nav-item"
+        :class="{ active: $route.path === item.path }"
+      >
+        <el-icon size="18">
+          <component :is="item.icon" />
+        </el-icon>
+        <span>{{ $t(`nav.${item.key}`) }}</span>
+      </router-link>
+    </nav>
   </header>
 </template>
 
@@ -153,7 +143,6 @@ import {
   Bell,
   Setting,
   SwitchButton,
-  Menu,
   Sunny,
   Moon,
   Monitor,
@@ -164,7 +153,6 @@ const { locale } = useI18n()
 const appStore = useAppStore()
 
 const searchQuery = ref('')
-const showMobileMenu = ref(false)
 const notificationCount = ref(2)
 const lastScrollY = ref(0)
 
@@ -200,10 +188,6 @@ const toggleTheme = () => {
   const currentIndex = themes.indexOf(appStore.theme)
   const nextTheme = themes[(currentIndex + 1) % themes.length]
   appStore.setTheme(nextTheme || 'light') // 如果 nextTheme 为 undefined，默认使用 'light' 主题
-}
-
-const toggleMobileMenu = () => {
-  showMobileMenu.value = !showMobileMenu.value
 }
 
 const handleSearch = () => {
@@ -388,30 +372,36 @@ onUnmounted(() => {
   width: 200px;
 }
 
-.mobile-menu-btn {
-  margin-left: 8px;
-}
-
 .mobile-nav {
   display: flex;
-  flex-direction: column;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(139, 69, 19, 0.1);
-  padding: 16px;
+  padding: 10px 12px 12px;
   gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.mobile-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .mobile-nav-item {
   display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border-radius: 8px;
+  justify-content: center;
+  gap: 6px;
+  min-width: 84px;
+  padding: 10px 12px;
+  border-radius: 12px;
   text-decoration: none;
   color: var(--tcm-dark);
   font-weight: 500;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .mobile-nav-item:hover {
@@ -421,6 +411,7 @@ onUnmounted(() => {
 .mobile-nav-item.active {
   background: var(--gradient-primary);
   color: white;
+  box-shadow: var(--shadow-light);
 }
 
 /* 动画 */
@@ -462,6 +453,11 @@ onUnmounted(() => {
   .header-right {
     gap: 8px;
   }
+
+  .mobile-nav-item {
+    min-width: 78px;
+    font-size: 12px;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -488,8 +484,19 @@ onUnmounted(() => {
     gap: 10px;
   }
 
-  .mobile-menu-btn {
-    margin-left: 4px;
+  .mobile-nav {
+    padding: 8px 10px 10px;
+    gap: 6px;
+  }
+
+  .mobile-nav-item {
+    min-width: 72px;
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
+
+  .mobile-nav-item span {
+    font-size: 11px;
   }
 }
 
